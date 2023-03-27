@@ -1,0 +1,11 @@
+@media (max-width: 415px){
+    .section{
+        padding: 30px 10px;
+    }
+
+    .weather{
+        &__list{
+            padding: 30px 10px;
+        }
+    }
+}
