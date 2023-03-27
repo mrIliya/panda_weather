@@ -16,7 +16,6 @@ const emits = defineEmits(['deleteItem', 'deleteFromFav'])
 const mainWeather = ref([])
 const weatherChart = ref(null)
 const warningModal = ref(false)
-const isFav = ref(false)
 
 const renameValues = () => {
     mainWeather.value = Object.entries(props.weatherData.main).map(
@@ -52,7 +51,7 @@ const initChart = async () => {
     const chartValue = weatherChart.value.getContext('2d')
 
     let chartStatus = Chart.getChart(weatherChart.value.id)
-    if (chartStatus != undefined) {
+    if (chartStatus !== undefined) {
         chartStatus.destroy()
     }
     let newChart = new Chart(chartValue, {
@@ -77,15 +76,6 @@ const deleteFromFavHandler = () => {
     emits('deleteFromFav', true)
 }
 
-const checkFav = async () => {
-    const cities = await getStorage('fav')
-    if (cities) {
-        isFav.value = cities.some(
-            (item) => item === props.weatherData.name
-        )
-    }
-}
-
 const toFavorites = () => {
     const cities = getStorage('fav')
     if (!cities) {
@@ -98,7 +88,6 @@ const toFavorites = () => {
             if (cities.length < 5) {
                 cities.push(props.weatherData.name)
                 setStorage('fav', cities)
-                checkFav()
             } else {
                 warningModal.value = true
             }
@@ -117,12 +106,9 @@ watchEffect(() => {
     }
 })
 
-onMounted(() => {
-    checkFav()
-})
 </script>
 <template>
-    <div class="weather" :class="{ favorite: isFav }">
+    <div class="weather">
         <div class="weather__top">
             <h2 class="weather__title">{{ props.weatherData.name }}</h2>
             <button
@@ -171,10 +157,6 @@ onMounted(() => {
 .weather {
     margin: 15px 0;
     border-radius: 15px;
-    border: 2px solid transparent;
-    &.favorite {
-        border-color: #02d7fc;
-    }
 
     &__top {
         margin: 20px;

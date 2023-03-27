@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import Search from '../components/Search/Search.vue'
 const blocks = ref([0])
 const blockCount = ref(1)
@@ -20,7 +20,7 @@ const deleteItem = (index) => {
         <button class="home__add" @click="addItem">+</button>
 
         <div class="home__content" v-for="block in blocks" :key="block">
-            <Search :key="block" :id="block"  @deleteItem="deleteItem(block)"/>
+            <Search :key="block" :id="block" @deleteItem="deleteItem(block)" />
         </div>
     </section>
 </template>
@@ -46,9 +46,9 @@ const deleteItem = (index) => {
     }
 }
 
-@media (max-width: 415px){
-    .home{
-        &__add{
+@media (max-width: 415px) {
+    .home {
+        &__add {
             right: 20px;
         }
     }
