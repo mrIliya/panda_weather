@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 import Search from '../components/Search/Search.vue'
 const blocks = ref([0])
 const blockCount = ref(1)
@@ -13,6 +13,7 @@ const deleteItem = (index) => {
     if (blocks.value.length === 1) return
     blocks.value.splice(index, 1)
 }
+
 </script>
 
 <template>

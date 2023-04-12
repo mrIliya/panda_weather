@@ -1,5 +1,5 @@
 <script setup>
-import { watchEffect, ref, onMounted, callWithErrorHandling } from 'vue'
+import { watchEffect, ref } from 'vue'
 import Chart from 'chart.js/auto'
 import weather from '../../api/weather'
 import { setStorage, getStorage } from '../../helpers/local'
@@ -54,7 +54,7 @@ const initChart = async () => {
     if (chartStatus !== undefined) {
         chartStatus.destroy()
     }
-    let newChart = new Chart(chartValue, {
+    new Chart(chartValue, {
         type: 'bar',
         data: {
             labels: time,
@@ -105,7 +105,6 @@ watchEffect(() => {
         initChart()
     }
 })
-
 </script>
 <template>
     <div class="weather">
@@ -136,10 +135,17 @@ watchEffect(() => {
             </button>
         </div>
         <ul class="weather__list">
-            <li class="weather__line" v-for="wather in mainWeather">
-                <span class="weather__text" v-for="value in wather">{{
-                    value
-                }}</span>
+            <li
+                class="weather__line"
+                v-for="weather in mainWeather"
+                :key="weather"
+            >
+                <span
+                    class="weather__text"
+                    v-for="value in weather"
+                    :key="value"
+                    >{{ value }}</span
+                >
             </li>
         </ul>
 

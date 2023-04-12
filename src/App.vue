@@ -1,11 +1,13 @@
 <script setup>
-import Header from './components/Header/Header.vue'
+import HeaderSM from './components/Header/HeaderSM.vue'
+import HeaderMain from './components/Header/HeaderMain.vue'
 </script>
 
 <template>
     <main class="main">
+        <HeaderMain/>
         <div class="logo">Panda Weather</div>
-        <Header />
+        <HeaderSM />
         <router-view />
     </main>
 </template>
